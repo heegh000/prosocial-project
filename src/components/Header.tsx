@@ -5,6 +5,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export function Header() {
     const navigate = useNavigate();
 
+    const webTitleClickHandler = () => {
+        navigate('/')
+    };
+
     return (
         <Box sx={{mt:'2rem', mb:'2rem'}}>
             <Toolbar>
@@ -12,7 +16,8 @@ export function Header() {
                     variant="h4" 
                     component="div" 
                     sx={{ flexGrow: 1, textAlign:"center", cursor: "pointer", margin:'revert'}} 
-                    color="primary.main">
+                    color="primary.main"
+                    onClick={webTitleClickHandler}>
                     친사회적 행동 프로젝트
                 </Typography>
                 <AccountCircleIcon color="primary" sx= {{mr: 2, fontSize: "3rem"}}/>
