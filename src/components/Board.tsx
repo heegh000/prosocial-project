@@ -12,7 +12,7 @@ export function Board() {
     const [postList, setPostList] = useState<PostInfoType[]>([])
 
     const getPostList = async() => {
-        let result : PostInfoType[] = (await axios.get('http://13.209.90.70:1324/board/', {params: {page_num: pageNum}})).data;
+        let result : PostInfoType[] = (await axios.get('http://13.209.90.70:1324/board', {params: {page_num: pageNum}})).data;
 
         if(result.length === 0) {
             setNextBtnEnable(false);
@@ -37,14 +37,15 @@ export function Board() {
 
     return (        
         <Container maxWidth='xl' sx={{ mt: 3, mb: 3, display:'flex', justifyContent:'center' }}>
-            <Box style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', width:'100%'}}>
+            <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', width:'100%'}}>
                 <Button variant="outlined" 
                     sx={{height:'3.5rem', width:'50%', mb:'2rem'}}
                     onClick={addBtnClickHandler}>
                     글쓰기
                 </Button>
                 { postList.map((p : PostInfoType) => (
-                    <PostDetail key={p.postId} title={p.title} content={p.content} postId={p.postId} likeCnt={p.likeCnt}></PostDetail>
+                    <PostDetail key={p.postId} title={p.title} content={p.content} 
+                        postId={p.postId} likeCnt={p.likeCnt} commentList={p.commentList}></PostDetail>
                 ))}
                 <Box sx={{display:'flex', flexDirection:'row', width:'80%', mb:'2rem'}}>
                 <Button  
