@@ -4,6 +4,7 @@ interface PostInfoType {
     content : string;
     createdAt? : string;
     likeCnt : number;
+    commentList : string[];
 }
 
 interface NewPostType {

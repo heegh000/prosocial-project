@@ -32,7 +32,7 @@ export function AddPost() {
             contnet : content
         };
 
-        (await axios.post('http://13.209.90.70:1324/board/add', JSON.stringify(data), {
+        (await axios.post('http://13.209.90.70:1324/board', JSON.stringify(data), {
                 headers: {'Content-Type': 'application/json'},
                 withCredentials: true
             }
