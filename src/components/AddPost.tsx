@@ -1,7 +1,13 @@
 import { useState, ChangeEvent } from "react"
 import { Container, Stack, Typography, TextField, Button} from "@mui/material"
+import { useLocation } from "react-router";
+import { NewPostType } from "../interfaces"
+import { useNavigate } from "react-router"
+import axios from 'axios'
 
 export function AddPost() {
+
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
@@ -16,8 +22,23 @@ export function AddPost() {
 
     const submitBtnClickedHandler = async() => {
         setSubmitBtnClicked(true);
-        //TODO HTTPS Request
 
+        if(title === '' || content === '') {
+            return;
+        }
+
+        let data : NewPostType = {
+            title : title,
+            contnet : content
+        };
+
+        (await axios.post('http://13.209.90.70:1324/board/add', JSON.stringify(data), {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+        ));
+
+        navigate('/');
     }
 
 
@@ -30,7 +51,7 @@ export function AddPost() {
                     </Typography>
                     <TextField placeholder='제목을 입력해주세요'
                         onChange={titleChangeHandler}
-                        error={title === ''}>
+                        error={submitBtnClicked && title === ''}>
                     </TextField>
                 </Stack>
                 <Stack sx={{width: '80%'}}>
@@ -39,7 +60,7 @@ export function AddPost() {
                     </Typography>
                     <TextField placeholder='내용을 입력해주세요'
                         onChange={contentChangeHandler}
-                        error={content === ''}
+                        error={submitBtnClicked && content === ''}
                         multiline
                         minRows={10}>
                     </TextField>
