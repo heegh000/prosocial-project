@@ -1,7 +1,8 @@
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
-import { useState, MouseEvent } from 'react';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Paper, TextField, Box, Button } from "@mui/material";
+import { useState, MouseEvent, ChangeEvent } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios'
+import { async } from "q";
 
 
 interface PostDetailProps {
@@ -10,19 +11,43 @@ interface PostDetailProps {
     postId : number;
     userId? : string;
     likeCnt : number;
+    commentList : string[];
 };
 
 export function PostDetail(props : PostDetailProps) {
 
     const [likeCnt, setLikeCnt] = useState<number>(props.likeCnt);
+    const [commentList, setCommentList] = useState<string[]>(props.commentList);
+    const [content, setContent] = useState<string>('');
+    const [addBtnClicked, setAddBtnClicked] = useState<boolean>(false);
+
 
     const likeBtnClickHandler = async (event : MouseEvent<HTMLElement>) => {
         event.stopPropagation();
 
-        let result : string = (await axios.post('http://13.209.90.70:1324/board/like', {params: {post_id: props.postId}})).data;
-        if(result === 'success') {
-            setLikeCnt(Number(likeCnt) + 1);
+        let result : string = (await axios.post('http://13.209.90.70:1324/like', JSON.stringify({post_id: props.postId}))).data;
+        
+        if(result !== 'success') {
+            return;
         }
+        
+        setLikeCnt(Number(likeCnt) + 1);
+    }
+
+    const contentChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setContent(event.target.value);
+    }
+
+    const addBtnClickedHandler = async() => {
+        setAddBtnClicked(true);
+        let result : string = (await axios.post('http://13.209.90.70:1324/comment', {params: {post_id: props.postId}})).data;
+
+        if(result != 'success') {
+            return;
+        }
+
+        let comments : string[] = (await axios.post('http://13.209.90.70:1324/comment', JSON.stringify({post_id: props.postId}))).data;
+        setCommentList(comments)
     }
 
     return (    
@@ -46,10 +71,34 @@ export function PostDetail(props : PostDetailProps) {
                 <AccordionDetails sx={{minHeight:'5rem', borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
                     <Typography sx={{padding: '1rem'}}>
                         {props.title}
-                    </Typography>
+                    </Typography>                    
                 </AccordionDetails>
+                {commentList?.map((comment => (
+                        <Box sx={{borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
+                            <Typography sx={{padding: '1rem'}}>
+                                {comment}
+                            </Typography>
+                        </Box>   
+                    )))
+                }
+                <Box sx={{display:'flex', flexDirection:'row', width:'100%', height:'3rem',
+                    borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
+                    <TextField placeholder='댓글 입력' 
+                        variant="standard"
+                        sx={{width:'90%', margin:'auto', marginLeft:'1rem',borderRight:'solid 1px rgba(0, 0, 0, .125)'}}
+                        onChange={contentChangeHandler}
+                        error={addBtnClicked && content === ''}
+                        InputProps={{
+                            disableUnderline: true,
+                        }}>
+                    </TextField>
+                    <Button sx={{width: '10%'}} 
+                        onClick={addBtnClickedHandler}>
+                        달기
+                    </Button>
+                </Box>
             </Accordion>
-            <div style={{marginTop:'5rem'}}></div>
+            <Box style={{marginTop:'5rem'}}></Box>
         </>
     )
 }
