@@ -25,7 +25,10 @@ export function PostDetail(props : PostDetailProps) {
     const likeBtnClickHandler = async (event : MouseEvent<HTMLElement>) => {
         event.stopPropagation();
 
-        let result : string = (await axios.post('http://13.209.90.70:1324/like', JSON.stringify({post_id: props.postId}))).data;
+        let result : string = (await axios.post('https://prosocial.heegh.store/like', JSON.stringify({post_id: props.postId}), {
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true
+        })).data;
         
         if(result !== 'success') {
             return;
@@ -40,13 +43,16 @@ export function PostDetail(props : PostDetailProps) {
 
     const addBtnClickedHandler = async() => {
         setAddBtnClicked(true);
-        let result : string = (await axios.post('http://13.209.90.70:1324/comment', {params: {post_id: props.postId}})).data;
+        let result : string = (await axios.post('https://prosocial.heegh.store/comment', {params: {post_id: props.postId}})).data;
 
         if(result != 'success') {
             return;
         }
 
-        let comments : string[] = (await axios.post('http://13.209.90.70:1324/comment', JSON.stringify({post_id: props.postId}))).data;
+        let comments : string[] = (await axios.post('https://prosocial.heegh.store/comment', JSON.stringify({post_id: props.postId}), {
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true
+        })).data;
         setCommentList(comments)
     }
 

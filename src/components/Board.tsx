@@ -12,7 +12,9 @@ export function Board() {
     const [postList, setPostList] = useState<PostInfoType[]>([])
 
     const getPostList = async() => {
-        let result : PostInfoType[] = (await axios.get('http://13.209.90.70:1324/board', {params: {page_num: pageNum}})).data;
+        let result : PostInfoType[] = (await axios.get('https://prosocial.heegh.store/board', {
+            params: {page_num: pageNum},
+            withCredentials: true})).data;
 
         if(result.length === 0) {
             setNextBtnEnable(false);
