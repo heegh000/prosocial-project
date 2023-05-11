@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Toolbar, Typography} from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
  
 export function Header() {
     const navigate = useNavigate();
@@ -20,9 +19,8 @@ export function Header() {
                     onClick={webTitleClickHandler}>
                     친사회적 행동 프로젝트
                 </Typography>
-                <AccountCircleIcon color="primary" sx= {{mr: 2, fontSize: "3rem"}}/>
             </Toolbar>
-            <Box sx={{mb:'5rem', mt:'3rem', border: "solid 0.1rem", borderColor:"primary.main"}}/>
+            <Box sx={{mb:'2rem', mt:'3rem', border: "solid 0.1rem", borderColor:"primary.main"}}/>
         </Box>
 
 
