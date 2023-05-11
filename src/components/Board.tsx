@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Container, Box, Button} from "@mui/material"
 import { PostDetail } from "./PostDetail";
 import { useNavigate } from "react-router"
@@ -11,7 +11,7 @@ export function Board() {
     const [nextBtnEnable, setNextBtnEnable] = useState<boolean>(false);
     const [postList, setPostList] = useState<PostInfoType[]>([])
 
-    const getPostList = async() => {
+    const getPostList = useCallback(async() => {
         let result : PostInfoType[] = (await axios.get('https://prosocial.heegh.store/board', {
             params: {page_num: pageNum},
             withCredentials: true})).data;
@@ -23,13 +23,13 @@ export function Board() {
         else {
             setPostList(result);
         }
-    };
+    }, [pageNum]);
 
     console.log(pageNum)
 
     useEffect(() => {
         getPostList();
-    }, [getPostList, pageNum]);
+    }, [getPostList]);
 
     const navigate = useNavigate();
 
