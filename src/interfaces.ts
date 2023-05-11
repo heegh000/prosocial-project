@@ -12,7 +12,13 @@ interface NewPostType {
     contnet : string;
 }
 
+interface NewCommentType {
+    content : string;
+    post_id : number;
+}
+
 export type {
     PostInfoType,
-    NewPostType
+    NewPostType,
+    NewCommentType
 }

@@ -2,6 +2,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography, TextField, B
 import { useState, MouseEvent, ChangeEvent } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios'
+import { NewCommentType } from '../interfaces'
 
 
 interface PostDetailProps {
@@ -42,16 +43,30 @@ export function PostDetail(props : PostDetailProps) {
 
     const addBtnClickedHandler = async() => {
         setAddBtnClicked(true);
-        let result : string = (await axios.post('https://prosocial.heegh.store/comment', {params: {post_id: props.postId}})).data;
+        
+        if(content === '') {
+            return;
+        }
+
+        const data : NewCommentType = {
+            content : content,
+            post_id: props.postId
+        }
+
+        let result : string = (await axios.post('https://prosocial.heegh.store/comment', JSON.stringify(data), {
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true
+        })).data;
 
         if(result !== 'success') {
             return;
         }
 
-        let comments : string[] = (await axios.post('https://prosocial.heegh.store/comment', JSON.stringify({post_id: props.postId}), {
-            headers: {'Content-Type': 'application/json'},
-            withCredentials: true
-        })).data;
+        let comments : string[] = (await axios.get('https://prosocial.heegh.store/comment', {
+            params: {post_id: props.postId},
+            withCredentials : true
+        })).data.commentList;
+
         setCommentList(comments)
     }
 
