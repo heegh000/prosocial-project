@@ -29,7 +29,7 @@ export function Board() {
 
     useEffect(() => {
         getPostList();
-    }, [pageNum]);
+    }, [getPostList, pageNum]);
 
     const navigate = useNavigate();
 

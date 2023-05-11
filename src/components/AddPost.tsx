@@ -1,6 +1,5 @@
 import { useState, ChangeEvent } from "react"
 import { Container, Stack, Typography, TextField, Button} from "@mui/material"
-import { useLocation } from "react-router";
 import { NewPostType } from "../interfaces"
 import { useNavigate } from "react-router"
 import axios from 'axios'
