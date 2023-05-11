@@ -1,6 +1,8 @@
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
 import { useState, MouseEvent } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import axios from 'axios'
+
 
 interface PostDetailProps {
     title : string;
@@ -14,9 +16,13 @@ export function PostDetail(props : PostDetailProps) {
 
     const [likeCnt, setLikeCnt] = useState<number>(props.likeCnt);
 
-    const likeBtnClickHandler = (event : MouseEvent<HTMLElement>) => {
+    const likeBtnClickHandler = async (event : MouseEvent<HTMLElement>) => {
         event.stopPropagation();
-        setLikeCnt(likeCnt + 1);
+
+        let result : string = (await axios.post('http://13.209.90.70:1324/board/like', {params: {post_id: props.postId}})).data;
+        if(result === 'success') {
+            setLikeCnt(Number(likeCnt) + 1);
+        }
     }
 
     return (    
