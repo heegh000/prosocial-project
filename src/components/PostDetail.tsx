@@ -1,8 +1,7 @@
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Paper, TextField, Box, Button } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, TextField, Box, Button } from "@mui/material";
 import { useState, MouseEvent, ChangeEvent } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios'
-import { async } from "q";
 
 
 interface PostDetailProps {
@@ -45,7 +44,7 @@ export function PostDetail(props : PostDetailProps) {
         setAddBtnClicked(true);
         let result : string = (await axios.post('https://prosocial.heegh.store/comment', {params: {post_id: props.postId}})).data;
 
-        if(result != 'success') {
+        if(result !== 'success') {
             return;
         }
 
