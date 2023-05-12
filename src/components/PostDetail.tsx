@@ -21,7 +21,7 @@ export function PostDetail(props : PostDetailProps) {
     const likeBtnClickHandler = async (event : MouseEvent<HTMLElement>) => {
         event.stopPropagation();
 
-        if(likeBtnClicked == true) {
+        if(likeBtnClicked === true) {
             return;
         }
         setLikeBtnClicked(true)
