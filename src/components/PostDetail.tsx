@@ -15,10 +15,16 @@ export function PostDetail(props : PostDetailProps) {
     const [commentList, setCommentList] = useState<string[]>(props.info.commentList);
     const [content, setContent] = useState<string>('');
     const [addBtnClicked, setAddBtnClicked] = useState<boolean>(false);
+    const [likeBtnClicked, setLikeBtnClicked] = useState<boolean>(false);
 
 
     const likeBtnClickHandler = async (event : MouseEvent<HTMLElement>) => {
         event.stopPropagation();
+
+        if(likeBtnClicked == true) {
+            return;
+        }
+        setLikeBtnClicked(true)
 
         let result : string = (await axios.post('https://prosocial.heegh.store/like', JSON.stringify({post_id: props.info.postId}), {
             headers: {'Content-Type': 'application/json'},
