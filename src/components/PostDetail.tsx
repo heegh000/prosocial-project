@@ -77,11 +77,11 @@ export function PostDetail(props : PostDetailProps) {
                         flexDirection: 'row-reverse',   
                         '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': { transform: 'rotate(90deg)'}
                     }}>
-                    <Typography sx={{display: 'flex', alignItems: 'center', padding:'0.7rem 0.1rem',fontSize:'1rem', width:'75%'}}>
+                    <Typography sx={{display: 'flex', alignItems: 'center', padding:'0.7rem 0.1rem',fontSize:'1rem', fontWeight:700,width:'75%'}}>
                         {props.info.title}
                     </Typography>
                     <Typography sx={{display: 'flex', alignItems: 'center', justifyContent:'center',
-                        padding:'0.7rem 0.1rem', fontSize:'1rem',  
+                        padding:'0.7rem 0.1rem', fontSize:'1rem',
                         width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
                             {props.info.createdAt}
                     </Typography>
@@ -91,16 +91,15 @@ export function PostDetail(props : PostDetailProps) {
                         onClick={likeBtnClickHandler}>
                         &#128077; {likeCnt}
                     </Typography>
-
                 </AccordionSummary>
-                <AccordionDetails sx={{minHeight:'5rem', borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
-                    <Typography sx={{padding:'0.5rem', fontSize:'1rem'}}>
+                <AccordionDetails sx={{minHeight:'5rem', borderTop:'solid 1px rgba(0, 0, 0, .125)', backgroundColor:'rgba(0, 0, 0, .125)'}}>
+                    <Typography sx={{padding:'0.5rem', fontSize:'1.5rem'}}>
                         {props.info.content}
                     </Typography>                    
                 </AccordionDetails>
                 {commentList?.map(((comment, idx) => (
                         <Box key={idx} sx={{borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
-                            <Typography sx={{padding:'1rem', fontSize:'1rem'}}>
+                            <Typography sx={{padding:'1rem', fontSize:'0.8rem'}}>
                                 {comment}
                             </Typography>
                         </Box>   
@@ -113,7 +112,6 @@ export function PostDetail(props : PostDetailProps) {
                         sx={{width:'90%', margin:'auto', marginLeft:'1rem',borderRight:'solid 1px rgba(0, 0, 0, .125)'}}
                         onChange={contentChangeHandler}
                         value={content}
-                        multiline
                         error={addBtnClicked && content === ''}
                         InputProps={{
                             disableUnderline: true,
@@ -121,7 +119,7 @@ export function PostDetail(props : PostDetailProps) {
                     </TextField>
                     <Button sx={{width: '10%'}} 
                         onClick={addBtnClickedHandler}>
-                        달기
+                        댓글<br/>달기
                     </Button>
                 </Box>
             </Accordion>
