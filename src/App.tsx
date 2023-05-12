@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Board></Board>}></Route>
           <Route path="/add" element={<AddPost></AddPost>}></Route>
+          <Route path="/*" element={<Board></Board>}></Route>
         </Routes>
       </Router>
       <div className="footer"><Footer></Footer></div>
