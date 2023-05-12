@@ -9,7 +9,7 @@ interface PostInfoType {
 
 interface NewPostType {
     title : string;
-    contnet : string;
+    content : string;
 }
 
 interface NewCommentType {

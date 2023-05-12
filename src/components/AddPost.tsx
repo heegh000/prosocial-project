@@ -28,7 +28,7 @@ export function AddPost() {
 
         let data : NewPostType = {
             title : title,
-            contnet : content
+            content : content
         };
 
         (await axios.post('https://prosocial.heegh.store/board', JSON.stringify(data), {

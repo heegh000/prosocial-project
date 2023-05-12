@@ -65,9 +65,13 @@ export function PostDetail(props : PostDetailProps) {
         let comments : string[] = (await axios.get('https://prosocial.heegh.store/comment', {
             params: {post_id: props.postId},
             withCredentials : true
-        })).data.commentList;
+        })).data.comments;
+
+        console.log(comments)
 
         setCommentList(comments)
+        setAddBtnClicked(false);
+        setContent('')
     }
 
     return (    
@@ -77,25 +81,25 @@ export function PostDetail(props : PostDetailProps) {
                     sx={{flexDirection: 'row-reverse',   
                         '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': { transform: 'rotate(90deg)'}
                     }}>
-                    <Typography sx={{padding: '1rem', width:'80%'}}>
+                    <Typography sx={{padding: '1rem', fontSize:'1rem', width:'80%'}}>
                         {props.title}
                     </Typography>
-                    <Typography sx={{padding: '1rem', textAlign:'center', width:'10%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
+                    <Typography sx={{padding: '1rem', fontSize:'1rem', width:'10%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
                         익명
                     </Typography>
-                    <Typography sx={{padding: '1rem', textAlign:'center', width:'10%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
+                    <Typography sx={{padding: '1rem', fontSize:'1rem', width:'10%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
                         onClick={likeBtnClickHandler}>
                         좋아요 {likeCnt}
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{minHeight:'5rem', borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
-                    <Typography sx={{padding: '1rem'}}>
-                        {props.title}
+                    <Typography sx={{padding: '1rem', fontSize:'1rem'}}>
+                        {props.content}
                     </Typography>                    
                 </AccordionDetails>
-                {commentList?.map((comment => (
-                        <Box sx={{borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
-                            <Typography sx={{padding: '1rem'}}>
+                {commentList?.map(((comment, idx) => (
+                        <Box key={idx} sx={{borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
+                            <Typography sx={{padding: '1rem', fontSize:'1rem'}}>
                                 {comment}
                             </Typography>
                         </Box>   
@@ -107,6 +111,7 @@ export function PostDetail(props : PostDetailProps) {
                         variant="standard"
                         sx={{width:'90%', margin:'auto', marginLeft:'1rem',borderRight:'solid 1px rgba(0, 0, 0, .125)'}}
                         onChange={contentChangeHandler}
+                        value={content}
                         error={addBtnClicked && content === ''}
                         InputProps={{
                             disableUnderline: true,
