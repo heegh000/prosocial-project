@@ -44,8 +44,7 @@ export function Board() {
                     글쓰기
                 </Button>
                 { postList.map((p : PostInfoType) => (
-                    <PostDetail key={p.postId} title={p.title} content={p.content} 
-                        postId={p.postId} likeCnt={p.likeCnt} commentList={p.commentList}></PostDetail>
+                    <PostDetail key={p.postId} info={p}></PostDetail>
                 ))}
                 <Box sx={{display:'flex', flexDirection:'row', width:'80%', mb:'2rem'}}>
                 <Button  
