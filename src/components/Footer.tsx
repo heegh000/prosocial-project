@@ -15,6 +15,8 @@ export function Footer() {
             <br/>
             Hanyang University Computer Software Engineering
             <br />
+            heegh
+            <br />
         </Typography>
         </Paper>
     );
