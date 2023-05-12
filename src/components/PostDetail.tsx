@@ -89,8 +89,7 @@ export function PostDetail(props : PostDetailProps) {
                         padding:'0.7rem 0.1rem', fontSize:'1rem', 
                         width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
                         onClick={likeBtnClickHandler}>
-                        &#128077;
-                        {likeCnt}
+                        &#128077; {likeCnt}
                     </Typography>
 
                 </AccordionSummary>
