@@ -80,28 +80,29 @@ export function PostDetail(props : PostDetailProps) {
                 <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ transform: 'rotate(-90deg)'}}/>}
                     sx={{display:'flex',
                         flexDirection: 'row-reverse',   
-                        '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': { transform: 'rotate(90deg)',}
+                        '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': { transform: 'rotate(90deg)',
+                        }
                     }}>
-                    <Typography sx={{ fontSize:'1rem', width:'60%'}}>
+                    <Typography sx={{padding:'0.7rem 0rem',fontSize:'1rem', width:'75%'}}>
                         {props.title}
                     </Typography>
-                    <Typography sx={{ textAlign:'center', fontSize:'1rem',  width:'20%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
+                    <Typography sx={{padding:'0.7rem 0rem', textAlign:'center', fontSize:'1rem',  width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
                             익명
                     </Typography>
-                    <Typography sx={{ textAlign:'center', ontSize:'1rem',  width:'20%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
+                    <Typography sx={{padding:'0.7rem 0rem', textAlign:'center', fontSize:'1rem', width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
                         onClick={likeBtnClickHandler}>
                         굿 {likeCnt}
                     </Typography>
 
                 </AccordionSummary>
                 <AccordionDetails sx={{minHeight:'5rem', borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
-                    <Typography sx={{ fontSize:'1rem'}}>
+                    <Typography sx={{padding:'0.5rem', fontSize:'1rem'}}>
                         {props.content}
                     </Typography>                    
                 </AccordionDetails>
                 {commentList?.map(((comment, idx) => (
                         <Box key={idx} sx={{borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
-                            <Typography sx={{padding:'0.5rem', fontSize:'1rem'}}>
+                            <Typography sx={{padding:'1rem', fontSize:'1rem'}}>
                                 {comment}
                             </Typography>
                         </Box>   
