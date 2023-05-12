@@ -2,22 +2,17 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography, TextField, B
 import { useState, MouseEvent, ChangeEvent } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios'
-import { NewCommentType } from '../interfaces'
+import { PostInfoType, NewCommentType } from '../interfaces'
 
 
 interface PostDetailProps {
-    title : string;
-    content : string;
-    postId : number;
-    userId? : string;
-    likeCnt : number;
-    commentList : string[];
+    info : PostInfoType;
 };
 
 export function PostDetail(props : PostDetailProps) {
 
-    const [likeCnt, setLikeCnt] = useState<number>(props.likeCnt);
-    const [commentList, setCommentList] = useState<string[]>(props.commentList);
+    const [likeCnt, setLikeCnt] = useState<number>(props.info.likeCnt);
+    const [commentList, setCommentList] = useState<string[]>(props.info.commentList);
     const [content, setContent] = useState<string>('');
     const [addBtnClicked, setAddBtnClicked] = useState<boolean>(false);
 
@@ -25,7 +20,7 @@ export function PostDetail(props : PostDetailProps) {
     const likeBtnClickHandler = async (event : MouseEvent<HTMLElement>) => {
         event.stopPropagation();
 
-        let result : string = (await axios.post('https://prosocial.heegh.store/like', JSON.stringify({post_id: props.postId}), {
+        let result : string = (await axios.post('https://prosocial.heegh.store/like', JSON.stringify({post_id: props.info.postId}), {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true
         })).data;
@@ -50,7 +45,7 @@ export function PostDetail(props : PostDetailProps) {
 
         const data : NewCommentType = {
             content : content,
-            post_id: props.postId
+            post_id: props.info.postId
         }
 
         let result : string = (await axios.post('https://prosocial.heegh.store/comment', JSON.stringify(data), {
@@ -63,7 +58,7 @@ export function PostDetail(props : PostDetailProps) {
         }
 
         let comments : string[] = (await axios.get('https://prosocial.heegh.store/comment', {
-            params: {post_id: props.postId},
+            params: {post_id: props.info.postId},
             withCredentials : true
         })).data.comments;
 
@@ -80,24 +75,28 @@ export function PostDetail(props : PostDetailProps) {
                 <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ transform: 'rotate(-90deg)'}}/>}
                     sx={{display:'flex',
                         flexDirection: 'row-reverse',   
-                        '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': { transform: 'rotate(90deg)',
-                        }
+                        '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': { transform: 'rotate(90deg)'}
                     }}>
-                    <Typography sx={{padding:'0.7rem 0rem',fontSize:'1rem', width:'75%'}}>
-                        {props.title}
+                    <Typography sx={{display: 'flex', alignItems: 'center', padding:'0.7rem 0.1rem',fontSize:'1rem', width:'75%'}}>
+                        {props.info.title}
                     </Typography>
-                    <Typography sx={{padding:'0.7rem 0rem', textAlign:'center', fontSize:'1rem',  width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
-                            익명
+                    <Typography sx={{display: 'flex', alignItems: 'center', justifyContent:'center',
+                        padding:'0.7rem 0.1rem', fontSize:'1rem',  
+                        width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}>
+                            {props.info.createdAt}
                     </Typography>
-                    <Typography sx={{padding:'0.7rem 0rem', textAlign:'center', fontSize:'1rem', width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
+                    <Typography sx={{display: 'flex', alignItems: 'center', justifyContent:'center', 
+                        padding:'0.7rem 0.1rem', fontSize:'1rem', 
+                        width:'17.5%', borderLeft:'solid 1px rgba(0, 0, 0, .125)'}}
                         onClick={likeBtnClickHandler}>
-                        굿 {likeCnt}
+                        &#128077;
+                        {likeCnt}
                     </Typography>
 
                 </AccordionSummary>
                 <AccordionDetails sx={{minHeight:'5rem', borderTop:'solid 1px rgba(0, 0, 0, .125)'}}>
                     <Typography sx={{padding:'0.5rem', fontSize:'1rem'}}>
-                        {props.content}
+                        {props.info.content}
                     </Typography>                    
                 </AccordionDetails>
                 {commentList?.map(((comment, idx) => (
