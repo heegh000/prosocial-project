@@ -1,6 +1,5 @@
 # 친사회적 행동 프로젝트
-- [http://prosocial1004.site/](http://prosocial1004.site/)
-
+- [http://prosocial1004.site/](http://prosocial1004.site/) (배포 중단)
 
 프로젝트 목적
 ---
@@ -10,13 +9,15 @@
 기능
 ---
 #### 친사회적 행동 보기(게시글), 반응하기(댓글, 추천)
-![게시글](https://github.com/heegh000/prosocial-project-web/assets/108382134/7456a32f-5783-4daa-8e75-f5c539c57787)
+![239120284-7456a32f-5783-4daa-8e75-f5c539c57787](https://github.com/heegh000/prosocial-project/assets/108382134/18b599c6-4dc1-458a-a156-353866f0ac16)
+
 - 다른 사용자가 작성한 친사회적 행동에 대한 글을 읽을 수 있습니다.
 - 또한 읽은 글에 대해 댓글을 남기거나, 추천을 누를 수 있습니다.
 - 각 페이지는 5개의 게시글로 이루어져 있으며, 페이지 이동시 게시물에 대한 정보를 서버로 api 요청을 하여 5개씩 가지고 옵니다.
 
 #### 친사회적 행동 알리기 (글쓰기)
-![글쓰기](https://github.com/heegh000/prosocial-project-web/assets/108382134/2155dd7d-d6dc-44d8-83dc-7af04e181f65)
+![239120188-2155dd7d-d6dc-44d8-83dc-7af04e181f65](https://github.com/heegh000/prosocial-project/assets/108382134/5fa64e18-4380-41b8-8e43-204408c4e41c)
+
 - 다른 사람들이 자신의 친사회적 행동 공유하기 위해 새로운 글을 작성할 수 있습니다.
 - 글쓰기 버튼 클릭시, 제목과 내용을 입력하여 글을 작성합니다.
 
